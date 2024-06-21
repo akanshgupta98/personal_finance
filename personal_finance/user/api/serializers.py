@@ -115,6 +115,7 @@ class UserPasswordUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         if instance.check_password(validated_data[USER_OLD_PASSWORD]):
             instance.set_password(validated_data[USER_NEW_PASSWORD])
+            instance.save()
         else:
             raise serializers.ValidationError({ERROR: INCORRECT_USER_PASSWORD})
 
@@ -122,12 +123,21 @@ class UserPasswordUpdateSerializer(serializers.ModelSerializer):
 
 
 class UserPasswordResetSerializer(serializers.ModelSerializer):
+    """Model serializer for user password reset functionality."""
 
     class Meta:
+        """Meta data for Model serializer"""
+
         model = User
         fields = [USER_EMAIL, USER_PASSWORD]
-        extra_kwargs = {USER_PASSWORD: {WRITE_ONLY_ARG: True}}
+        extra_kwargs = {
+            USER_PASSWORD: {
+                STYLE_ARG: {INPUT_TYPE_ARG: USER_PASSWORD},
+                WRITE_ONLY_ARG: True,
+            }
+        }
 
     def update(self, instance, validated_data):
-        instance.set_pasword(validated_data[USER_PASSWORD])
+        instance.set_password(validated_data[USER_PASSWORD])
+        instance.save()
         return instance

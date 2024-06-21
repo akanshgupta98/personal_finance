@@ -6,6 +6,7 @@ from user.api.serializers import (
     UserPasswordResetSerializer,
 )
 from user.constants import USERNAME, USER_EMAIL
+from django.shortcuts import get_object_or_404
 
 
 class UserRegisteration(generics.CreateAPIView):
@@ -17,12 +18,18 @@ class UserRegisteration(generics.CreateAPIView):
 class UserPasswordUpdate(generics.UpdateAPIView):
     """Generic UpdateAPIView for user password update based on username"""
 
-    queryset = User.objects.all()
     serializer_class = UserPasswordUpdateSerializer
     lookup_field = USERNAME
 
+    def get_queryset(self):
+        username = self.kwargs["username"]
+        return User.objects.filter(username=username)
+
 
 class UserPasswordReset(generics.UpdateAPIView):
-    queryset = User.objects.all()
     serializer_class = UserPasswordResetSerializer
-    lookup_field = USER_EMAIL
+
+    def get_object(self):
+        email = self.request.POST.get(USER_EMAIL)
+        instance = get_object_or_404(User, email=email)
+        return instance

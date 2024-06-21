@@ -5,14 +5,13 @@ urlpatterns = [
     path("register/", UserRegisteration.as_view(), name="registration"),
     # path("login/", admin.site.urls),
     # path("logout/", admin.site.urls),
-    # path("recover-password/", admin.site.urls),
     path(
         "<str:username>/change-password/",
         UserPasswordUpdate.as_view(),
         name="updatepassword",
     ),
     path(
-        "<str:email>/reset-password/",
+        "reset-password/",
         UserPasswordReset.as_view(),
         name="changepassword",
     ),

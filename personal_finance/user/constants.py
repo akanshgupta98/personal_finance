@@ -10,6 +10,7 @@ USER_OLD_PASSWORD = "old_password"
 USER_NEW_PASSWORD = "new_password"
 
 INPUT_TYPE_ARG = "input_type"
+STYLE_ARG = "style"
 
 
 """ERROR MESSAGES"""
