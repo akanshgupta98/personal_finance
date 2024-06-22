@@ -10,7 +10,7 @@ from user.api.serializers import (
     UserPasswordUpdateSerializer,
     UserPasswordResetSerializer,
 )
-from user.constants import USERNAME, USER_EMAIL
+from personal_finance.constants import USERNAME, USER_EMAIL
 
 
 class UserRegisteration(generics.CreateAPIView):

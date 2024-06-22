@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from user.api.validators import Validators, EmailFieldValidator
+from user.api.validators import UserAPIValidator
 
-from user.constants import *
+from personal_finance.constants import *
 
 
 class UserRegisterationSerializer(serializers.ModelSerializer):
@@ -40,11 +40,11 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
             dict: validated data
         """
 
-        validator = Validators(attrs)
-        email_validator = EmailFieldValidator(attrs)
+        # validator = Validators(attrs)
+        user_api_validator = UserAPIValidator(attrs)
 
         # Password Validation
-        validator.validate_fields_match(USER_PASSWORD, USER_CONFIRM_PASSWORD)
+        user_api_validator.validate_fields_match(USER_PASSWORD, USER_CONFIRM_PASSWORD)
 
         # blank field validation
         blank_validator_fields = [
@@ -54,11 +54,11 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
         ]
 
         for field in blank_validator_fields:
-            validator.validate_field_not_blank(field)
+            user_api_validator.validate_field_not_blank(field)
 
         # unique email validation
 
-        email_validator.validate_email_unique(
+        user_api_validator.validate_email_unique(
             field=USER_EMAIL,
             model=User,
             err_msg=EMAIL_NOT_UNIQUE_ERR_MSG,
@@ -104,7 +104,7 @@ class UserPasswordUpdateSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
 
-        data_validator = Validators(attrs)
+        data_validator = UserAPIValidator(attrs)
 
         data_validator.validate_fields_match(USER_NEW_PASSWORD, USER_CONFIRM_PASSWORD)
 
@@ -139,7 +139,7 @@ class UserPasswordResetSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
 
-        data_validator = Validators(attrs)
+        data_validator = UserAPIValidator(attrs)
         blank_fields = [USER_EMAIL, USER_PASSWORD]
         for field in blank_fields:
             data_validator.validate_field_not_blank(field)
