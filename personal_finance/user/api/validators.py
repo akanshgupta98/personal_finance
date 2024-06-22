@@ -11,23 +11,21 @@ class Validators:
     A utility class for validating fields.
     """
 
-    def __init__(self, attrs=None):
+    def __init__(self, attrs):
         """
         Initializes data
         """
         self.data = attrs
         self.default_err_msg = DEFAULT_VALIDATION_FAILURE_ERR_MSG
         self.err_dict = {ERROR: self.default_err_msg}
-        self.field_1 = None
-        self.field_2 = None
+        self.fields = []
 
-    def _get_data(self, field_1, field_2):
-        if self.data is not None:
-            self.field_1 = self.data.get(field_1)
-            self.field_2 = self.data.get(field_2)
-        else:
-            self.field_1 = field_1
-            self.field_2 = field_2
+    def _get_data(self, *argv):
+        self.fields.clear()
+        for arg in argv:
+            self.fields.append(self.data.get(arg))
+
+        print("fields data is: ", self.fields)
 
     def _validation_error(self, err_msg):
 
@@ -51,7 +49,9 @@ class Validators:
         """
         self._get_data(field_1, field_2)
         self.default_err_msg = MISMATCH_ERR_MSG.format(field_1, field_2)
-        if self.field_1 != self.field_2:
+
+        # raise error if all elements in fields are not same.
+        if len(set(self.fields)) != 1:
             raise self._validation_error(err_msg)
 
     def validate_field_not_blank(self, field, err_msg=None):
@@ -64,9 +64,14 @@ class Validators:
         Raises:
             Validation Error: If field is blank
         """
+        print(f"{__class__.__name__}")
         self.default_err_msg = FIELD_BLANK_ERR_MSG.format(field)
-        if len(field) == 0:
-            raise self._validation_error(err_msg)
+        self._get_data(field)
+
+        # Raise validation error if any field is blank
+        for field_val in self.fields:
+            if field_val is None or len(field_val) == 0:
+                raise self._validation_error(err_msg)
 
     def validate_fields_not_match(self, field_1: str, field_2: str, err_msg=None):
         """Validate uniqueness of fields
@@ -84,7 +89,8 @@ class Validators:
 
         self.default_err_msg = MATCH_ERR_MSG.format(field_1, field_2)
 
-        if self.field_1 == self.field_2:
+        # raise validation error if all fields are match
+        if len(set(self.fields)) == 1:
             raise self._validation_error(err_msg)
 
 
@@ -102,5 +108,7 @@ class EmailFieldValidator(Validators):
         Raises:
             Validation Error: If email is not unique
         """
-        if model.objects.filter(email=field).exists():
+        self._get_data(field)
+
+        if model.objects.filter(email=self.fields[0]).exists():
             raise self._validation_error(err_msg)

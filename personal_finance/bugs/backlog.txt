@@ -1,0 +1,4 @@
+1. For JWT authentication, whenever user logs out from front-end, 
+    he can login using the old token. 
+2. Whenever a user updates password, the token still exists and can
+    access all the APIs. 

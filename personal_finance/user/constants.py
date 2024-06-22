@@ -8,6 +8,7 @@ USERNAME = "username"
 WRITE_ONLY_ARG = "write_only"
 USER_OLD_PASSWORD = "old_password"
 USER_NEW_PASSWORD = "new_password"
+TOKEN = "token"
 
 INPUT_TYPE_ARG = "input_type"
 STYLE_ARG = "style"
@@ -20,5 +21,5 @@ MATCH_ERR_MSG = "{} and {} cannot be same"
 EMAIL_NOT_UNIQUE_ERR_MSG = (
     "A user with same email already exists.Try to login, or change password."
 )
-FIELD_BLANK_ERR_MSG = "Empty field: {} value not allowed "
+FIELD_BLANK_ERR_MSG = "This field: {} is required. Empty value not allowed "
 INCORRECT_USER_PASSWORD = "Incorrect password entered for the user"

@@ -40,8 +40,8 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
             dict: validated data
         """
 
-        validator = Validators()
-        email_validator = EmailFieldValidator()
+        validator = Validators(attrs)
+        email_validator = EmailFieldValidator(attrs)
 
         # Password Validation
         validator.validate_fields_match(USER_PASSWORD, USER_CONFIRM_PASSWORD)
@@ -59,7 +59,7 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
         # unique email validation
 
         email_validator.validate_email_unique(
-            field=attrs.get(USER_EMAIL),
+            field=USER_EMAIL,
             model=User,
             err_msg=EMAIL_NOT_UNIQUE_ERR_MSG,
         )
@@ -136,6 +136,15 @@ class UserPasswordResetSerializer(serializers.ModelSerializer):
                 WRITE_ONLY_ARG: True,
             }
         }
+
+    def validate(self, attrs):
+
+        data_validator = Validators(attrs)
+        blank_fields = [USER_EMAIL, USER_PASSWORD]
+        for field in blank_fields:
+            data_validator.validate_field_not_blank(field)
+
+        return attrs
 
     def update(self, instance, validated_data):
         instance.set_password(validated_data[USER_PASSWORD])
