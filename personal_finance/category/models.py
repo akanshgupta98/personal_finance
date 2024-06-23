@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
-class Category(models.Model):
+class ExpenseCategory(models.Model):
     """Model for Category. It will contain all expense categories"""
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)

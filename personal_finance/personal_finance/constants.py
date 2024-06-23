@@ -31,3 +31,4 @@ INCORRECT_USER_PASSWORD = "Incorrect password entered for the user"
 CATEGORY_NAME_SAME_VALUE_ERR_MSG = (
     "Existing value and new value for category cannot be same"
 )
+PRIMARY_KEY = "pk"

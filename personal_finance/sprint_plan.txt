@@ -28,7 +28,7 @@ Implement the UI for displaying the list of income entries.
 Add pagination for the income entries list.
 
 
-Day 5: Expense Management (Part 1)
+Day 5: Expense Management (Part 1) -> DONE
 Create the Expense model.
 Implement API endpoints for CRUD operations (Create, Read, Update, Delete) for expense entries.
 Implement serializers for the Expense model.
@@ -46,7 +46,7 @@ Implement searching functionality for income and expense entries.
 Sprint 2: Enhanced Features
 
 
-Day 1: Categories Management
+Day 1: Categories Management -> DONE
 Create the Category model.
 Implement API endpoints for CRUD operations for categories.
 Implement serializers for the Category model.

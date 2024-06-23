@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from category.models import Category
+from category.models import ExpenseCategory
 from personal_finance.constants import *
 from category.api.validators import CategoryAPIValidator
 from personal_finance.loging import Logger
@@ -16,7 +16,7 @@ class AddCategorySerializer(serializers.ModelSerializer):
     class Meta:
         """Meta data for Model serializer"""
 
-        model = Category
+        model = ExpenseCategory
         fields = ALL_MODEL_FIELDS
         extra_kwargs = {USER_FIELD: {READ_ONLY_ARG: True}}
 
@@ -24,7 +24,7 @@ class AddCategorySerializer(serializers.ModelSerializer):
 
         self.logger.Debug("Add category create called")
         validated_data[USER_FIELD] = self._context[REQUEST_DATA].user
-        return Category.objects.create(**validated_data)
+        return ExpenseCategory.objects.create(**validated_data)
 
 
 class DetailCategorySerializer(serializers.ModelSerializer):
@@ -35,7 +35,7 @@ class DetailCategorySerializer(serializers.ModelSerializer):
     class Meta:
         """Meta data for model serializer"""
 
-        model = Category
+        model = ExpenseCategory
         fields = [CATEGORY_NAME, USER_FIELD]
         extra_kwargs = {USER_FIELD: {READ_ONLY_ARG: True}}
 
