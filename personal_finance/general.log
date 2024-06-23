@@ -1,0 +1,5 @@
+
+[DEBUG] 2024:06:23-07:36:05 (personal_finance.validators) LOGGER OBJECT CREATED FOR personal_finance.validators
+[DEBUG] 2024:06:23-07:36:05 (personal_finance.validators) fields data is: ['Food'] 
+[ERROR] 2024:06:23-07:36:05 (personal_finance.validators) Existing value and new value for category cannot be same
+[INFO] 2024:06:23-07:36:37 (category.api.views) detail view called

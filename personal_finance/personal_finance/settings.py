@@ -135,5 +135,43 @@ REST_FRAMEWORK = {
     )
 }
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "standard": {
+            "format": "[%(levelname)s] %(asctime)s (%(name)s) %(message)s",
+            "datefmt": "%Y:%m:%d-%H:%M:%S",  # Custom date format without milliseconds
+        },
+    },
+    "handlers": {
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "messages.log",
+            "formatter": "standard",
+            "level": "DEBUG",
+        },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "standard",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "ERROR",
+        },
+        "category": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+        "personal_finance": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+    },
 }

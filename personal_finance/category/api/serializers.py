@@ -2,10 +2,16 @@ from rest_framework import serializers
 from category.models import Category
 from personal_finance.constants import *
 from category.api.validators import CategoryAPIValidator
+from personal_finance.loging import Logger
 
 
 class AddCategorySerializer(serializers.ModelSerializer):
     """Model serializer for adding/ listing categories"""
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+        self.logger = Logger(__name__)
 
     class Meta:
         """Meta data for Model serializer"""
@@ -16,6 +22,7 @@ class AddCategorySerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
+        self.logger.Debug("Add category create called")
         validated_data[USER_FIELD] = self._context[REQUEST_DATA].user
         return Category.objects.create(**validated_data)
 

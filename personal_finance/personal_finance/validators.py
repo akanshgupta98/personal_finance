@@ -4,6 +4,7 @@ Module for validating user input
 
 from rest_framework import serializers
 from personal_finance.constants import *
+from personal_finance.loging import Logger
 
 
 class Validators:
@@ -19,6 +20,7 @@ class Validators:
         self.default_err_msg = DEFAULT_VALIDATION_FAILURE_ERR_MSG
         self.err_dict = {ERROR: self.default_err_msg}
         self.fields = []
+        self.logger = Logger(__name__)
 
     def _get_data(self, *argv):
         """
@@ -34,7 +36,7 @@ class Validators:
         for arg in argv:
             self.fields.append(self.data.get(arg))
 
-        print("fields data is: ", self.fields)
+        self.logger.Debug(f"fields data is: {self.fields} ")
 
     def _validation_error(self, err_msg):
 
@@ -42,6 +44,8 @@ class Validators:
             self.err_dict[ERROR] = err_msg
         else:
             self.err_dict[ERROR] = self.default_err_msg
+
+        self.logger.Error(f"{self.err_dict[ERROR]}")
 
         return serializers.ValidationError(self.err_dict)
 
@@ -73,7 +77,6 @@ class Validators:
         Raises:
             Validation Error: If field is blank
         """
-        print(f"{__class__.__name__}")
         self.default_err_msg = FIELD_BLANK_ERR_MSG.format(field)
         self._get_data(field)
 
