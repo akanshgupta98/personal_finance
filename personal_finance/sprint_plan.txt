@@ -1,7 +1,7 @@
 Sprint 1: Core Functionality
 
 
-Day 1:
+Day 1: -> DONE
 Project Setup and User Authentication
 Set up the Django project and environment.
 Install and configure Django REST Framework.

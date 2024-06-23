@@ -173,5 +173,9 @@ LOGGING = {
             "handlers": ["console"],
             "level": "INFO",
         },
+        "expense": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
     },
 }
