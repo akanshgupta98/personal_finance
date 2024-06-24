@@ -4,7 +4,8 @@ from personal_finance.constants import *
 from personal_finance.loging import Logger
 
 
-class ListExpenseSerializer(serializers.ModelSerializer):
+class ExpenseSerializer(serializers.ModelSerializer):
+    """Base class for Expense Serializer"""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -12,9 +13,15 @@ class ListExpenseSerializer(serializers.ModelSerializer):
         self.model_manager = ExpenseModelManager()
 
     class Meta:
+        """Meta data for Expense Serializer"""
+
         model = ExpenseModelManager().get_model()
         fields = ALL_MODEL_FIELDS
         extra_kwargs = {USER_FIELD: {READ_ONLY_ARG: True}}
+
+
+class ListExpenseSerializer(ExpenseSerializer):
+    """Model serializer for ListExpense View. Inherits ExpenseSerializer"""
 
     def create(self, validated_data):
         self.logger.Info(f"Expense serializer create called with data:{validated_data}")
@@ -28,16 +35,11 @@ class ListExpenseSerializer(serializers.ModelSerializer):
         return new_user
 
 
-class DetailExpenseSerializer(serializers.ModelSerializer):
+class DetailExpenseSerializer(ExpenseSerializer):
+    """Model serializer for DetailExpense View. Inherits ExpenseSerializer"""
 
     # user = serializers.CharField(source="user.username")
     # category = serializers.CharField(source="category.name")
-
-    class Meta:
-
-        model = ExpenseModelManager().get_model()
-        fields = ALL_MODEL_FIELDS
-        extra_kwargs = {USER_FIELD: {READ_ONLY_ARG: True}}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
