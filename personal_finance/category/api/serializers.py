@@ -1,22 +1,26 @@
 from rest_framework import serializers
-from category.models import ExpenseCategory
+from category.models import get_model_manager_obj
 from personal_finance.constants import *
 from category.api.validators import CategoryAPIValidator
 from personal_finance.loging import Logger
 
 
-class AddCategorySerializer(serializers.ModelSerializer):
-    """Model serializer for adding/ listing categories"""
+class CategorySerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
 
         super().__init__(*args, **kwargs)
         self.logger = Logger(__name__)
+        self.model_manager = get_model_manager_obj()
+
+
+class AddCategorySerializer(CategorySerializer):
+    """Model serializer for adding/ listing categories"""
 
     class Meta:
         """Meta data for Model serializer"""
 
-        model = ExpenseCategory
+        model = get_model_manager_obj().get_model()
         fields = ALL_MODEL_FIELDS
         extra_kwargs = {USER_FIELD: {READ_ONLY_ARG: True}}
 
@@ -24,10 +28,10 @@ class AddCategorySerializer(serializers.ModelSerializer):
 
         self.logger.Debug("Add category create called")
         validated_data[USER_FIELD] = self._context[REQUEST_DATA].user
-        return ExpenseCategory.objects.create(**validated_data)
+        return self.model_manager.create(**validated_data)
 
 
-class DetailCategorySerializer(serializers.ModelSerializer):
+class DetailCategorySerializer(CategorySerializer):
     """Model serializer for single category"""
 
     name = serializers.CharField()
@@ -35,7 +39,7 @@ class DetailCategorySerializer(serializers.ModelSerializer):
     class Meta:
         """Meta data for model serializer"""
 
-        model = ExpenseCategory
+        model = get_model_manager_obj().get_model()
         fields = [CATEGORY_NAME, USER_FIELD]
         extra_kwargs = {USER_FIELD: {READ_ONLY_ARG: True}}
 

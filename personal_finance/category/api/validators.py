@@ -1,5 +1,5 @@
 from personal_finance.validators import Validators
-from category.models import ExpenseCategory
+from category.models import get_model_manager_obj
 from personal_finance.constants import *
 from rest_framework import serializers
 
@@ -8,7 +8,7 @@ class CategoryAPIValidator(Validators):
     """Validator for category API"""
 
     def __init__(self, attrs):
-        self.model = ExpenseCategory
+        self.model = get_model_manager_obj().get_model()
         super().__init__(attrs)
 
     def validate_no_duplicate_update(self, field: str):

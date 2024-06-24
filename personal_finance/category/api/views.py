@@ -4,22 +4,22 @@ from category.api.serializers import (
     AddCategorySerializer,
     DetailCategorySerializer,
 )
-from category.models import ExpenseCategory
+from category.models import get_model_manager_obj
 from personal_finance.constants import *
 
 
-class ListCategory(generics.ListCreateAPIView):
+class ListExpenseCategory(generics.ListCreateAPIView):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    queryset = ExpenseCategory.objects.all()
+    queryset = get_model_manager_obj().list_data()
     serializer_class = AddCategorySerializer
 
 
-class DetailCategory(generics.RetrieveUpdateDestroyAPIView):
+class DetailExpenseCategory(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DetailCategorySerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         pk = self.kwargs.get(PRIMARY_KEY)
-        return ExpenseCategory.objects.filter(pk=pk)
+        return get_model_manager_obj().fetch_data_basis_pk(pk)

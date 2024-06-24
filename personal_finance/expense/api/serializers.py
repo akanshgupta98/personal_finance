@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from expense.models import ExpenseModelManager
+from expense.model_manager import get_model_manager_obj
 from personal_finance.constants import *
 from personal_finance.loging import Logger
 
@@ -10,12 +10,12 @@ class ExpenseSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.logger = Logger(__name__)
-        self.model_manager = ExpenseModelManager()
+        self.model_manager = get_model_manager_obj()
 
     class Meta:
         """Meta data for Expense Serializer"""
 
-        model = ExpenseModelManager().get_model()
+        model = get_model_manager_obj().get_model()
         fields = ALL_MODEL_FIELDS
         extra_kwargs = {USER_FIELD: {READ_ONLY_ARG: True}}
 

@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import ExpenseCategory
+from .models import get_model_manager_obj
 
 # Register your models here.
-admin.site.register(ExpenseCategory)
+model = get_model_manager_obj()
+admin.site.register(model.get_model())

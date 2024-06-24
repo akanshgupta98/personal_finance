@@ -2,20 +2,20 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from expense.api.serializers import ListExpenseSerializer, DetailExpenseSerializer
-from expense.models import ExpenseModelManager
+from expense.model_manager import get_model_manager_obj
 
 from personal_finance.constants import PRIMARY_KEY
 
 
 class ListExpense(generics.ListCreateAPIView):
-    model_manager = ExpenseModelManager()
+    model_manager = get_model_manager_obj()
     queryset = model_manager.list_data()
     serializer_class = ListExpenseSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class DetailExpense(generics.RetrieveUpdateDestroyAPIView):
-    model_manager = ExpenseModelManager()
+    model_manager = get_model_manager_obj()
     serializer_class = DetailExpenseSerializer
     permission_classes = [IsAuthenticated]
 
