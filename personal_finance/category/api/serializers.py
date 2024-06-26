@@ -1,11 +1,12 @@
 from rest_framework import serializers
-from category.models import get_model_manager_obj
+from category.models import get_model_manager_obj, get_income_model_manager_obj
 from personal_finance.constants import *
 from category.api.validators import CategoryAPIValidator
 from personal_finance.loging import Logger
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    """Base model serializer class for Category"""
 
     def __init__(self, *args, **kwargs):
 
@@ -47,3 +48,33 @@ class DetailCategorySerializer(CategorySerializer):
         category_validator = CategoryAPIValidator(attrs)
         category_validator.validate_no_duplicate_update(CATEGORY_NAME)
         return attrs
+
+
+class AddIncomeCategorySerializer(CategorySerializer):
+
+    class Meta:
+        model = get_income_model_manager_obj().get_model()
+        fields = ALL_MODEL_FIELDS
+        extra_kwargs = {USER_FIELD: {READ_ONLY_ARG: True}}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.model_manager = get_income_model_manager_obj()
+
+    def create(self, validated_data):
+        self.logger.Info(f"Create Income request with {validated_data}")
+        validated_data[USER_FIELD] = self._context[REQUEST_DATA].user
+        ins = self.model_manager.create(**validated_data)
+        self.logger.Info("New Income added")
+        return ins
+
+
+class DetailIncomeCategorySerializer(CategorySerializer):
+    class Meta:
+        model = get_income_model_manager_obj().get_model()
+        fields = ALL_MODEL_FIELDS
+        extra_kwargs = {USER_FIELD: {READ_ONLY_ARG: True}}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.model_manager = get_income_model_manager_obj()

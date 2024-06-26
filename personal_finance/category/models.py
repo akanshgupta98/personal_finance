@@ -7,6 +7,10 @@ def get_model_manager_obj():
     return ExpenseCategoryModelManager()
 
 
+def get_income_model_manager_obj():
+    return IncomeCategoryModelManager()
+
+
 class CategoryModelManager(ModelManager):
     """Base class for Managing category models"""
 

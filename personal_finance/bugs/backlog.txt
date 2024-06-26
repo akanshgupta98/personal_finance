@@ -2,5 +2,3 @@
     he can login using the old token. 
 2. Whenever a user updates password, the token still exists and can
     access all the APIs. 
-3. Enhance validators class to be completely generic (using variable parameters)
-4. Implement logging in project
