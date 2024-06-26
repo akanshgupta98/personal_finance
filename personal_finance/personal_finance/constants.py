@@ -12,6 +12,8 @@ USER_OLD_PASSWORD = "old_password"
 USER_NEW_PASSWORD = "new_password"
 TOKEN = "token"
 USER_FIELD = "user"
+AMOUNT_FIELD = "amount"
+SOURCE_FIELD = "source"
 ALL_MODEL_FIELDS = "__all__"
 REQUEST_DATA = "request"
 

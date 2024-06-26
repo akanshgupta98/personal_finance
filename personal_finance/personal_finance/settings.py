@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "expense",
     "category",
+    "income",
 ]
 
 MIDDLEWARE = [
@@ -174,6 +175,10 @@ LOGGING = {
             "level": "INFO",
         },
         "expense": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
+        "income": {
             "handlers": ["console"],
             "level": "DEBUG",
         },
