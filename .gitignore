@@ -12,3 +12,7 @@ __pycache__/
 
 # Ignore environment variables files
 .env
+personal_finance/db.sqlite3
+personal_finance/personal_finance/__pycache__/settings.cpython-310.pyc
+
+
