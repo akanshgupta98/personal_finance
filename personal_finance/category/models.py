@@ -4,10 +4,12 @@ from personal_finance.model_manager import ModelManager
 
 
 def get_model_manager_obj():
+    """Returns ExpenseCategoryModelManager object"""
     return ExpenseCategoryModelManager()
 
 
 def get_income_model_manager_obj():
+    """Returns IncomeCategoryModelManager object"""
     return IncomeCategoryModelManager()
 
 
@@ -20,6 +22,7 @@ class CategoryModelManager(ModelManager):
         self.__obj = self.model.objects
 
     def get_model(self):
+        """Returns Model"""
         return self.model
 
     def create(self, **kwargs):

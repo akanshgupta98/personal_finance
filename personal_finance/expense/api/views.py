@@ -1,4 +1,7 @@
 from rest_framework import generics
+from rest_framework.pagination import PageNumberPagination
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from expense.api.serializers import ListExpenseSerializer, DetailExpenseSerializer
@@ -12,6 +15,15 @@ class ListExpense(generics.ListCreateAPIView):
     queryset = model_manager.list_data()
     serializer_class = ListExpenseSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = PageNumberPagination
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+    filterset_fields = ["category"]
+    search_fields = ["description"]
+    ordering_fields = ["date"]
 
 
 class DetailExpense(generics.RetrieveUpdateDestroyAPIView):

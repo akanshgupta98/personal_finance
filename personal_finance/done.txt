@@ -1,0 +1,29 @@
+Day 1: -> DONE
+Project Setup and User Authentication
+Set up the Django project and environment.
+Install and configure Django REST Framework.
+Set up the database.
+Implement user registration.
+Implement user login and logout.
+Implement password recovery and reset.
+
+Day 3: Income Management (Part 1) -> DONE
+Create the Income model.
+Implement API endpoints for CRUD operations (Create, Read, Update, Delete) for income entries.
+Implement serializers for the Income model.
+
+Day 5: Expense Management (Part 1) -> DONE
+Create the Expense model.
+Implement API endpoints for CRUD operations (Create, Read, Update, Delete) for expense entries.
+Implement serializers for the Expense model.
+
+Day 1: Categories Management -> DONE
+Create the Category model.
+Implement API endpoints for CRUD operations for categories.
+Implement serializers for the Category model.
+Integrate category management with expense entries.
+
+Day 7: Filtering and Searching
+Implement filtering functionality for income and expense entries.
+Implement searching functionality for income and expense entries.
+Sprint 2: Enhanced Features

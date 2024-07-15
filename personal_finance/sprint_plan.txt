@@ -1,24 +1,12 @@
 Sprint 1: Core Functionality
 
 
-Day 1: -> DONE
-Project Setup and User Authentication
-Set up the Django project and environment.
-Install and configure Django REST Framework.
-Set up the database.
-Implement user registration.
-Implement user login and logout.
-Implement password recovery and reset.
 
 Day 2: Dashboard Layout
 Create the initial layout for the dashboard.
 Implement the API endpoint for fetching the summary of financial status.
 Display total income, total expenses, and current balance on the dashboard.
 
-Day 3: Income Management (Part 1)
-Create the Income model.
-Implement API endpoints for CRUD operations (Create, Read, Update, Delete) for income entries.
-Implement serializers for the Income model.
 
 
 
@@ -28,10 +16,6 @@ Implement the UI for displaying the list of income entries.
 Add pagination for the income entries list.
 
 
-Day 5: Expense Management (Part 1) -> DONE
-Create the Expense model.
-Implement API endpoints for CRUD operations (Create, Read, Update, Delete) for expense entries.
-Implement serializers for the Expense model.
 
 
 Day 6: Expense Management (Part 2)
@@ -40,17 +24,8 @@ Implement the UI for displaying the list of expense entries.
 Add pagination for the expense entries list.
 
 
-Day 7: Filtering and Searching
-Implement filtering functionality for income and expense entries.
-Implement searching functionality for income and expense entries.
-Sprint 2: Enhanced Features
 
 
-Day 1: Categories Management -> DONE
-Create the Category model.
-Implement API endpoints for CRUD operations for categories.
-Implement serializers for the Category model.
-Integrate category management with expense entries.
 
 
 Day 2: Reports (Part 1)

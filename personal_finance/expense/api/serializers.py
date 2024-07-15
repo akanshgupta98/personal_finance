@@ -29,10 +29,10 @@ class ListExpenseSerializer(ExpenseSerializer):
         user = self._context[REQUEST_DATA].user
         self.logger.Debug(f"User creating this expense is {user}")
         validated_data[USER_FIELD] = user
-        new_user = self.model_manager.create(**validated_data)
+        expense = self.model_manager.create(**validated_data)
 
         self.logger.Info("New Expense entry created successfully")
-        return new_user
+        return expense
 
 
 class DetailExpenseSerializer(ExpenseSerializer):
