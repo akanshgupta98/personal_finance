@@ -23,13 +23,18 @@ class UserPasswordUpdate(generics.UpdateAPIView):
     """Generic UpdateAPIView for user password update based on username"""
 
     serializer_class = UserPasswordUpdateSerializer
-    lookup_field = USERNAME
+    # lookup_field = USERNAME
 
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        username = self.kwargs["username"]
-        return User.objects.filter(username=username)
+    def get_object(self):
+        user_id = self.request.user.id
+        instance = get_object_or_404(User, id=user_id)
+        return instance
+
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return User.objects.filter(pk=user.id)
 
 
 class UserPasswordReset(generics.UpdateAPIView):

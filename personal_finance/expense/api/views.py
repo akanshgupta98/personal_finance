@@ -15,7 +15,7 @@ class ListExpense(generics.ListCreateAPIView):
     queryset = model_manager.list_data()
     serializer_class = ListExpenseSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-    pagination_class = PageNumberPagination
+    # pagination_class = PageNumberPagination
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter,

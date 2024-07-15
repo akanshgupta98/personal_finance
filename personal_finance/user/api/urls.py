@@ -14,7 +14,7 @@ from user.api.views import (
 urlpatterns = [
     path("register/", UserRegisteration.as_view(), name="registration"),
     path(
-        "<str:username>/change-password/",
+        "change-password/",
         UserPasswordUpdate.as_view(),
         name="updatepassword",
     ),
